@@ -1,0 +1,453 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="layoutDirection">
+   <enum>Qt::LeftToRight</enum>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QPushButton" name="runButton">
+    <property name="geometry">
+     <rect>
+      <x>570</x>
+      <y>520</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Run</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="domain_box">
+    <property name="geometry">
+     <rect>
+      <x>120</x>
+      <y>90</y>
+      <width>113</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>[0,1]x[0,1]</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="nno_box">
+    <property name="geometry">
+     <rect>
+      <x>120</x>
+      <y>120</y>
+      <width>113</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>400</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>90</y>
+      <width>47</width>
+      <height>13</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Domain</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>30</y>
+      <width>47</width>
+      <height>13</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>File:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_3">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>120</y>
+      <width>81</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Number of nodes</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_4">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>190</y>
+      <width>111</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Boundary conditions :</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_6">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>150</y>
+      <width>81</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Solution method</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_7">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>60</y>
+      <width>271</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Right hand side (Ax^2 + By^2 + Cxy + Dx + Ey + F)</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_8">
+    <property name="geometry">
+     <rect>
+      <x>460</x>
+      <y>130</y>
+      <width>151</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="readinputButton">
+    <property name="geometry">
+     <rect>
+      <x>310</x>
+      <y>30</y>
+      <width>121</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Read input file</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="saveinputButton">
+    <property name="geometry">
+     <rect>
+      <x>460</x>
+      <y>30</y>
+      <width>121</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Save input file</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="rhs_box">
+    <property name="geometry">
+     <rect>
+      <x>460</x>
+      <y>60</y>
+      <width>121</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="solmet">
+    <property name="geometry">
+     <rect>
+      <x>120</x>
+      <y>150</y>
+      <width>69</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <item>
+     <property name="text">
+      <string>FDM</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>FEM</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QPushButton" name="exitButton">
+    <property name="geometry">
+     <rect>
+      <x>650</x>
+      <y>520</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Exit</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="bound2box">
+    <property name="geometry">
+     <rect>
+      <x>120</x>
+      <y>250</y>
+      <width>113</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>0</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="bound3box">
+    <property name="geometry">
+     <rect>
+      <x>120</x>
+      <y>280</y>
+      <width>113</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>0</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="bound4box">
+    <property name="geometry">
+     <rect>
+      <x>120</x>
+      <y>310</y>
+      <width>113</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::RightToLeft</enum>
+    </property>
+    <property name="text">
+     <string>0</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="bound1box">
+    <property name="geometry">
+     <rect>
+      <x>120</x>
+      <y>220</y>
+      <width>113</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>0</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_5">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>220</y>
+      <width>81</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Boundary 1</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_9">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>250</y>
+      <width>81</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Boundary 2</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_10">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>280</y>
+      <width>81</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Boundary 3</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_11">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>310</y>
+      <width>81</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Boundary 4</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="rhs_mode">
+    <property name="geometry">
+     <rect>
+      <x>310</x>
+      <y>60</y>
+      <width>121</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <item>
+     <property name="text">
+      <string>Constant</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Linear</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Quadratic</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QGraphicsView" name="graphicsView">
+    <property name="geometry">
+     <rect>
+      <x>270</x>
+      <y>101</y>
+      <width>511</width>
+      <height>341</height>
+     </rect>
+    </property>
+    <property name="interactive">
+     <bool>true</bool>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>21</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>runButton</sender>
+   <signal>released()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>on_runbutton_pressed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>608</x>
+     <y>545</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>887</x>
+     <y>293</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>exitButton</sender>
+   <signal>released()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>on_exitbutton_pressed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>685</x>
+     <y>542</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>850</x>
+     <y>297</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>readinputButton</sender>
+   <signal>released()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>on_readfilebutton_pressed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>398</x>
+     <y>51</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>860</x>
+     <y>49</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>saveinputButton</sender>
+   <signal>released()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>on_savefilebutton_pressed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>574</x>
+     <y>58</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>844</x>
+     <y>60</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>on_runbutton_pressed()</slot>
+  <slot>on_exitbutton_pressed()</slot>
+  <slot>on_readfilebutton_pressed()</slot>
+  <slot>on_savefilebutton_pressed()</slot>
+ </slots>
+</ui>
