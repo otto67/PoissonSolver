@@ -6,7 +6,7 @@
 #include <unistd.h>
 #include <QDir>
 
-#define PLOTTER_FILE "D:\\qtprojects\\testproject\\plotter.py"
+#define PLOTTER_FILE "D:\\qtprojects\\PoissonSolver\\plotter.py"
 
 extern void gausselim(std::vector<std::vector<double>> &a,
 		      std::vector<double> &x);
