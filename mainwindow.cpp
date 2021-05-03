@@ -10,16 +10,13 @@
 #include <QFile>
 #include <QTextStream>
 
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
 
-    QGraphicsScene *scene = new QGraphicsScene();
-    QPixmap m("D:\\mypict2.jpg");
-    scene->setBackgroundBrush(m.scaled(100,100,Qt::IgnoreAspectRatio,Qt::SmoothTransformation));
-    ui->graphicsView->setScene(scene);
 }
 
 MainWindow::~MainWindow()
@@ -27,6 +24,28 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::addPlot(){
+
+    QString str = "plot.jpg";
+    QImage m(str);
+
+    QPixmap pixmap = QPixmap::fromImage(m);
+
+    int width = ui->graphicsView->geometry().width() + 100;
+    int height = ui->graphicsView->geometry().height() + 100;
+    QGraphicsScene *scene = new QGraphicsScene(QRectF(0, 0, width, height), 0);
+    scene->addPixmap(pixmap.scaled(QSize((int)scene->width(), (int)scene->height()),
+       Qt::KeepAspectRatio, Qt::SmoothTransformation));
+
+
+//    ui->graphicsView->setDragMode()
+    ui->graphicsView->setInteractive(true);
+    ui->graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    ui->graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+
+    ui->graphicsView->setScene(scene);
+    ui->graphicsView->show();
+}
 
 void MainWindow::on_runbutton_pressed(){
 
@@ -46,6 +65,7 @@ void MainWindow::on_runbutton_pressed(){
          solver.setBCs(bc_);
          solver.setRHS(rhs_);
          solver.solve();
+         addPlot();
 
     } else {
         QMessageBox msgBox;
@@ -55,6 +75,8 @@ void MainWindow::on_runbutton_pressed(){
 }
 
 void MainWindow::on_exitbutton_pressed(){
+    remove( "plot.jpg");
+    remove( "nodevals.nod");
     this->close();
 }
 

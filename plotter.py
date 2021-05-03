@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
 
-import os
 import numpy as np
 import matplotlib
-import time as tm
+
 matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
 
@@ -15,8 +14,8 @@ def plot():
     try:
         with open("nodevals.nod","r") as reader:
             for item in reader.readlines():
-                lin = item.strip()
-                
+
+                lin = item.strip()            
                 if lin.startswith('M'): # metadata for matrix size
                                         # and interval lengths
                     lin = lin[1:]
@@ -46,7 +45,10 @@ def plot():
             ax.set_xlabel('X axis')
             ax.set_ylabel('Y axis')
             ax.plot_surface(X, Y, sol, cmap='viridis', edgecolor='none')
-            plt.show()
+
+            plt.savefig('plot.jpg', dpi=300, bbox_inches='tight')
+          #  plt.show()
+
     except:
         print("Requested file doesn't exist \n")
         # os.system("ls -l")

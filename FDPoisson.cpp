@@ -5,6 +5,7 @@
 #include <iostream>
 #include <unistd.h>
 #include <QDir>
+#include <QThread>
 
 #define PLOTTER_FILE "D:\\qtprojects\\PoissonSolver\\plotter.py"
 
@@ -23,11 +24,9 @@ DscPrms::DscPrms(int nno , float xmin, float ymin,
 
   dx = (x_max - x_min)/(nno_x - 1);
   dy = (y_max - y_min)/(nno_y - 1);
-
-  std::cout<<"Creating DscPrms \n";
 }
 
-void FDPoisson::assembleEqsys(){
+void FDPoisson::assembleEqSys(){
   
    float dx = params->dx;
    float dy = params->dy;
@@ -78,8 +77,6 @@ void FDPoisson::fillEssBC(){
   int nnox = params->nno_x;
   int nnoy = params->nno_y;
   
-  std::cout<<"Filling essbc \n";
-
   // Note: Need to check boundary indicators later
   for (int i= 0; i<nnoy; i++){
     for (int j= 0; j<nnox*nnoy; j++){
@@ -150,7 +147,7 @@ void FDPoisson::setBoinds(std::vector<std::tuple<int, int, int, int>> binds){
 void FDPoisson::solve(){
 
   int i, j;
-  assembleEqsys();
+  assembleEqSys();
   fillEssBC();
   
   int size = A->size();
@@ -218,13 +215,37 @@ void FDPoisson::plot(){
   }
 
   catch (std::exception const& e){
-
       std::cout << "There was an error: " << e.what() << std::endl;
-
   }
 
+
+  myfile.open("runfile.bat");
   std::string cmd = "python -u ";
   cmd += PLOTTER_FILE;
+  myfile <<cmd<<std::endl;
+  myfile <<"exit 0"<<std::endl;
+  myfile.close();
 
-  std::system(cmd.c_str());
+  /*
+
+  STARTUPINFOW si;
+  PROCESS_INFORMATION pi;
+
+  ZeroMemory(&si, sizeof(si));
+  si.cb = sizeof(si);
+  ZeroMemory(&pi, sizeof(pi));
+
+  if (CreateProcessW(cmd, NULL, NULL, NULL, False, CREATE_NO_WINDOW, NULL, NULL, &si, &pi))
+  {
+      WaitForSingleObject(pi.hProcess, INFINITE);
+      CloseHandle(pi.hProcess);
+      CloseHandle(pi.hThread);
+  }
+  */
+
+//  std::system(cmd.c_str());
+  std::system("start /min runfile.bat");
+  QThread::sleep(3);
+  remove( "runfile.bat" );
+
 }

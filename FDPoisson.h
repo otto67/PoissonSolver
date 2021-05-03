@@ -21,7 +21,7 @@ class FDPoisson {
   std::unique_ptr<std::vector<std::vector<double>>> A;
   std::unique_ptr<std::vector<std::vector<int>>> bic;
   
-  void assembleEqsys();
+  void assembleEqSys();
   void fillEssBC();
   void plot();
   
