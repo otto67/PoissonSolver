@@ -1,4 +1,4 @@
-# Test repository for c++ and QT Creator
+# C++ and QT Creator test repository
 The code solves a Poisson equation with bc's and right hand side prescribed through a simple user interface
 written in QT Creator. 
 
