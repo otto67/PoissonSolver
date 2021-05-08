@@ -27,14 +27,12 @@ SOURCES += \
     Simulator.cpp \
     gauss.cpp \
     main.cpp \
-    mainwindow.cpp \
-    qcustomplot.cpp
+    mainwindow.cpp
 
 HEADERS += \
     FDPoisson.h \
     Simulator.h \
-    mainwindow.h \
-    qcustomplot.h
+    mainwindow.h
 
 FORMS += \
     mainwindow.ui
