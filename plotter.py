@@ -47,7 +47,7 @@ def plot():
             ax.plot_surface(X, Y, sol, cmap='viridis', edgecolor='none')
 
             plt.savefig('plot.jpg', dpi=300, bbox_inches='tight')
-          #  plt.show()
+            plt.show()
 
     except:
         print("Requested file doesn't exist \n")

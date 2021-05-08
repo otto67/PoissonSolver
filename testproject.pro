@@ -8,15 +8,15 @@ CONFIG += c++17
 DISTFILES += \
     plotter.py
 
+MY_PWD = $$PWD
+MY_OUT_PWD = $$OUT_PWD
 
+win32 {
+MY_PWD ~= s,/,\\,g
+MY_OUT_PWD ~= s,/,\\,g
+}
 
-PWD_WIN = $$PWD
-PWD_WIN ~= s,/,\\,g
-OUT_PWD_WIN = $$OUT_PWD
-OUT_PWD_WIN ~= s,/,\\,g
-
-# QMAKE_POST_LINK +=  $$quote(cmd dir)
-QMAKE_POST_LINK +=  $$QMAKE_COPY $$quote($$PWD_WIN\\plotter.py $$OUT_PWD_WIN)
+QMAKE_POST_LINK +=  $$QMAKE_COPY $$quote($$MY_PWD\\plotter.py $$MY_OUT_PWD)
 
 # You can make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.
