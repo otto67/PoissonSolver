@@ -7,7 +7,8 @@
 #include <QDir>
 #include <QThread>
 
-#define PLOTTER_FILE "D:\\qtprojects\\PoissonSolver\\plotter.py"
+// No longer necessary. Copy the file to execution directory in makefile instead
+// #define PLOTTER_FILE "D:\\qtprojects\\PoissonSolver\\plotter.py"
 
 extern void gausselim(std::vector<std::vector<double>> &a,
 		      std::vector<double> &x);
@@ -189,7 +190,6 @@ void FDPoisson::plot(){
   float y_min = params->y_min;
   
   std::ofstream myfile;
-  char filename[] = "plotter.py";
 
   std::vector<std::vector<double>> u(nno_x);
   for(int i = 0; i < nno_x; i++){
@@ -218,34 +218,16 @@ void FDPoisson::plot(){
       std::cout << "There was an error: " << e.what() << std::endl;
   }
 
-
   myfile.open("runfile.bat");
-  std::string cmd = "python -u ";
-  cmd += PLOTTER_FILE;
+  std::string cmd = "python -u plotter.py";
+
   myfile <<cmd<<std::endl;
   myfile <<"exit 0"<<std::endl;
   myfile.close();
 
-  /*
-
-  STARTUPINFOW si;
-  PROCESS_INFORMATION pi;
-
-  ZeroMemory(&si, sizeof(si));
-  si.cb = sizeof(si);
-  ZeroMemory(&pi, sizeof(pi));
-
-  if (CreateProcessW(cmd, NULL, NULL, NULL, False, CREATE_NO_WINDOW, NULL, NULL, &si, &pi))
-  {
-      WaitForSingleObject(pi.hProcess, INFINITE);
-      CloseHandle(pi.hProcess);
-      CloseHandle(pi.hThread);
-  }
-  */
-
-//  std::system(cmd.c_str());
   std::system("start /min runfile.bat");
   QThread::sleep(3);
   remove( "runfile.bat" );
+
 
 }

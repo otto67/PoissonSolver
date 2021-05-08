@@ -1,8 +1,22 @@
 QT       += core gui
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets printsupport
 
 CONFIG += c++17
+
+
+DISTFILES += \
+    plotter.py
+
+
+
+PWD_WIN = $$PWD
+PWD_WIN ~= s,/,\\,g
+OUT_PWD_WIN = $$OUT_PWD
+OUT_PWD_WIN ~= s,/,\\,g
+
+# QMAKE_POST_LINK +=  $$quote(cmd dir)
+QMAKE_POST_LINK +=  $$QMAKE_COPY $$quote($$PWD_WIN\\plotter.py $$OUT_PWD_WIN)
 
 # You can make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.
@@ -13,12 +27,14 @@ SOURCES += \
     Simulator.cpp \
     gauss.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    qcustomplot.cpp
 
 HEADERS += \
     FDPoisson.h \
     Simulator.h \
-    mainwindow.h
+    mainwindow.h \
+    qcustomplot.h
 
 FORMS += \
     mainwindow.ui
@@ -28,5 +44,3 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-DISTFILES += \
-    plotter.py
