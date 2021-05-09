@@ -15,7 +15,7 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-    void addPlot();
+    void addPlot(QString);
 
 public slots:
     void on_exitbutton_pressed();

@@ -6,6 +6,7 @@
 #include <unistd.h>
 #include <QDir>
 #include <QThread>
+#include <QtOpenGL>
 
 // No longer necessary. Copy the file to execution directory in makefile instead
 // #define PLOTTER_FILE "D:\\qtprojects\\PoissonSolver\\plotter.py"
@@ -153,8 +154,6 @@ void FDPoisson::solve(){
   
   int size = A->size();
 
-  std::cout<<"Solving \n";
-
   std::vector<std::vector<double>> a(size);
   for(i = 0; i < size; i++){
     a[i] = std::vector<double>(size+1);
@@ -199,7 +198,7 @@ void FDPoisson::plot(){
   for (int i=0; i<nno_x*nno_y; i++){
     u[floor(i/nno_x)][i % nno_x] = (*solution)[i]; 
   }
-  
+
   try {
 
       myfile.open ("nodevals.nod");
@@ -218,16 +217,9 @@ void FDPoisson::plot(){
       std::cout << "There was an error: " << e.what() << std::endl;
   }
 
-  myfile.open("runfile.bat");
-  std::string cmd = "python -u plotter.py";
 
-  myfile <<cmd<<std::endl;
-  myfile <<"exit 0"<<std::endl;
-  myfile.close();
-
-  std::system("start /min runfile.bat");
-  QThread::sleep(3);
-  remove( "runfile.bat" );
-
-
+  QStringList arguments {"plotter.py"};
+  QProcess p;
+  p.startDetached("python ", arguments);
+  QThread::sleep(3); // Wait for the script to write picture to file
 }

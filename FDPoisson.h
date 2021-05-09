@@ -10,12 +10,13 @@ public:
   int nno_x, nno_y;
   
   DscPrms(int=1600, float=0.0, float=0.0, float=1.0, float=1.0);
-  ~DscPrms(){std::cout<<"Deleting DSCPrms object \n";}
+  ~DscPrms(){}
 };
 
 class FDPoisson {
 
  protected:
+
   std::shared_ptr<DscPrms> params;
   std::unique_ptr<std::vector<double>> solution, r_h_s;
   std::unique_ptr<std::vector<std::vector<double>>> A;
@@ -32,9 +33,9 @@ class FDPoisson {
   
   
  public:
-  FDPoisson(std::shared_ptr<DscPrms> prms) : params(prms){std::cout<<"Creating FD \n";}
-  FDPoisson(){std::cout<<"FD empty constructor called \n";}
-  ~FDPoisson(){ std::cout<<"Deleting FD object"<<std::endl;}
+  FDPoisson(std::shared_ptr<DscPrms> prms) : params(prms){}
+  FDPoisson(){}
+  ~FDPoisson(){}
 
   virtual void solve();
   void setBoinds(std::vector<std::tuple<int, int, int, int>>);

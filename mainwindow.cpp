@@ -17,6 +17,9 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
+    QString str = "livigno.jpg";
+    addPlot(str);
+
 }
 
 MainWindow::~MainWindow()
@@ -24,9 +27,8 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::addPlot(){
+void MainWindow::addPlot(QString str){
 
-    QString str = "plot.jpg";
     QImage m(str);
 
     QPixmap pixmap = QPixmap::fromImage(m);
@@ -64,13 +66,15 @@ void MainWindow::on_runbutton_pressed(){
     parseBC(bc_);
     parseRHS(rhs_);
 
+    QString plotfile = "plot.jpg";
+
     if (ui->solmet->currentText() == "FDM"){   
 
          Simulator solver(prms);
          solver.setBCs(bc_);
          solver.setRHS(rhs_);
          solver.solve();
-         addPlot();
+         addPlot(plotfile);
 
     } else {
         QMessageBox msgBox;
@@ -229,7 +233,6 @@ void MainWindow::parseBC(std::vector<float>& bc){
 
     // Check for exceptions later
     bool tmp;
-    int i;
 
     bc[0] = ui->bound1box->text().toFloat(&tmp);
     if (!tmp){

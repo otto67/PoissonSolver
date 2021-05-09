@@ -2,6 +2,7 @@
 
 import numpy as np
 import matplotlib
+import time as tm
 
 matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
@@ -16,14 +17,12 @@ def plot():
             for item in reader.readlines():
 
                 lin = item.strip()            
-                if lin.startswith('M'): # metadata for matrix size
-                                        # and interval lengths
+                if lin.startswith('M'):   # metadata for matrix size and interval lengths
                     lin = lin[1:]
                     (xmin, ymin, dx, dy, size) = tuple(lin.strip().split(';'))
                     sol = np.zeros((int(size), int(size)))
                     cmp = np.zeros((int(size), int(size)))
                     continue
-                
                 if (lin.endswith(';')):
                     lin = lin[:-1]
 
@@ -31,7 +30,7 @@ def plot():
                 sol[linecount] = lst
                 linecount += 1
 
-            x = y = np.arange(0.0, 1.0, 1/ len(sol))
+            x = y = np.arange(0.0, 1.0, 1 / len(sol))
             X, Y = np.meshgrid(x, y)
             fig = plt.figure()
             
@@ -40,7 +39,7 @@ def plot():
                 for j in range(int(size)):
                     x = j*float(dx)
                     cmp[i][j] = sol[i][j] - (2*x*x - y*y)
-            
+
             ax = plt.axes(projection='3d')
             ax.set_xlabel('X axis')
             ax.set_ylabel('Y axis')

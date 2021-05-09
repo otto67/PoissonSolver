@@ -381,6 +381,15 @@
     <property name="sizeAdjustPolicy">
      <enum>QAbstractScrollArea::AdjustToContents</enum>
     </property>
+    <property name="backgroundBrush">
+     <brush brushstyle="NoBrush">
+      <color alpha="255">
+       <red>0</red>
+       <green>0</green>
+       <blue>0</blue>
+      </color>
+     </brush>
+    </property>
     <property name="interactive">
      <bool>true</bool>
     </property>

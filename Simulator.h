@@ -16,10 +16,9 @@ protected:
 public:
   Simulator(std::shared_ptr<DscPrms> prms) {
     this->params = prms;
-    std::cout<<"Creating Simulator object \n";
-  }
+    }
   
-  ~Simulator(){ std::cout<<"Deleting Simulator object"<<std::endl;}
+  ~Simulator(){}
 
   void setRHS(std::vector<float> cfs);
   void setBCs(std::vector<float> bcs);

@@ -1,22 +1,32 @@
-QT       += core gui
+QT       += core gui opengl
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets printsupport
 
 CONFIG += c++17
 
+QMAKE_CXXFLAGS_WARN_ON += -Wno-unused-parameter
 
 DISTFILES += \
-    plotter.py
+    plotter.py \
+    livigno.jpg \
+    mountain.jpg
 
 MY_PWD = $$PWD
 MY_OUT_PWD = $$OUT_PWD
+MY_FILES = $$MY_PWD/plotter.py $$MY_PWD/livigno.jpg $$MY_PWD/mountain.jpg
+
 
 win32 {
 MY_PWD ~= s,/,\\,g
 MY_OUT_PWD ~= s,/,\\,g
+MY_FILES ~= s,/,\\,g
 }
 
-QMAKE_POST_LINK +=  $$QMAKE_COPY $$quote($$MY_PWD\\plotter.py $$MY_OUT_PWD)
+# QMAKE_POST_LINK +=  $$QMAKE_COPY $$quote($$MY_FILES $$MY_OUT_PWD)
+# for(a, MY_FILES) message($${a})
+for(a, MY_FILES){
+                QMAKE_POST_LINK +=  $$QMAKE_COPY $$quote($${a} $$MY_OUT_PWD $$escape_expand(\\n\\t))
+}
 
 # You can make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.
