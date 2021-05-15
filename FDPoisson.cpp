@@ -6,10 +6,10 @@
 #include <unistd.h>
 #include <QDir>
 #include <QThread>
-#include <QtOpenGL>
+#include <QProcess>
+#include <QMessageBox>
 
-// No longer necessary. Copy the file to execution directory in makefile instead
-// #define PLOTTER_FILE "D:\\qtprojects\\PoissonSolver\\plotter.py"
+// #include <QtOpenGL>
 
 extern void gausselim(std::vector<std::vector<double>> &a,
 		      std::vector<double> &x);
@@ -80,26 +80,26 @@ void FDPoisson::fillEssBC(){
   int nnoy = params->nno_y;
   
   // Note: Need to check boundary indicators later
-  for (int i= 0; i<nnoy; i++){
+  for (int i= 0; i<nnox; i++){
     for (int j= 0; j<nnox*nnoy; j++){
       (*A)[i][j] = 0.0;
-      (*A)[nnoy*(nnox-1)+i][j] = 0.0;
+      (*A)[nnox*(nnoy-1)+i][j] = 0.0;
     }
     (*A)[i][i] = 1.0;
-    (*A)[nnoy*(nnox-1)+i][nnoy*(nnox-1)+i] = 1.0;
-    (*r_h_s)[i] = essBC(i*dx,0);
-    (*r_h_s)[nnoy *(nnox - 1)+i] = essBC(i*dx, 1);
+    (*A)[nnox*(nnoy-1)+i][nnox*(nnoy-1)+i] = 1.0;
+    (*r_h_s)[i] = essBC(i*dx,params->y_min);
+    (*r_h_s)[nnox *(nnoy - 1)+i] = essBC(i*dx, params->y_max);
   }
   
    for (int i=0; i<nnoy; i++){
     for (int j=0; j<nnox*nnoy; j++){
       (*A)[i*nnox][j] = 0.0;
-      (*A)[(nnoy-1)+(i * nnoy)][j] = 0.0;
+      (*A)[(nnox-1)+(i * nnox)][j] = 0.0;
     }
-    (*A)[i*nnoy][i*nnoy] = 1.0;
-    (*A)[(nnoy-1)+i*nnoy][(nnoy-1)+ i*nnoy] = 1.0;
-    (*r_h_s)[i*nnoy] = essBC(0, i*dy);
-    (*r_h_s)[(nnoy - 1)+ (i*nnoy)] = essBC(1, i*dy);
+    (*A)[i*nnox][i*nnox] = 1.0;
+    (*A)[(nnox-1)+i*nnox][(nnox-1)+ i*nnox] = 1.0;
+    (*r_h_s)[i*nnoy] = essBC(params->x_min, i*dy);
+    (*r_h_s)[(nnox - 1)+ (i*nnox)] = essBC(params->x_max, i*dy);
    }
 
     /*
@@ -114,7 +114,7 @@ float FDPoisson::analytic(float x, float y){
   return 2*x*x - y*y;
 }
 
-float FDPoisson::RHS(float x, float y){
+float FDPoisson::RHS(float, float){
   return 2;
 }
 
@@ -149,6 +149,7 @@ void FDPoisson::setBoinds(std::vector<std::tuple<int, int, int, int>> binds){
 void FDPoisson::solve(){
 
   int i, j;
+
   assembleEqSys();
   fillEssBC();
   
@@ -175,7 +176,6 @@ void FDPoisson::solve(){
   // a contains matrix augmented with right hand side
   // gausselim fills into *solution
   gausselim(a, *solution);
-
   plot();
 }
 
@@ -189,10 +189,10 @@ void FDPoisson::plot(){
   float y_min = params->y_min;
   
   std::ofstream myfile;
+  std::vector<std::vector<double>> u(nno_y);
 
-  std::vector<std::vector<double>> u(nno_x);
-  for(int i = 0; i < nno_x; i++){
-    u[i] = std::vector<double>(nno_y);
+  for(int i = 0; i < nno_y; i++){
+    u[i] = std::vector<double>(nno_x);
   }
   
   for (int i=0; i<nno_x*nno_y; i++){
@@ -203,7 +203,7 @@ void FDPoisson::plot(){
 
       myfile.open ("nodevals.nod");
 
-    myfile <<"M "<<x_min<<';'<<y_min<<';'<<dx<<';'<<dy<<';'<<nno_x<<std::endl;
+    myfile <<"M "<<x_min<<';'<<y_min<<';'<<dx<<';'<<dy<<';'<<nno_x<<';'<<nno_y<<std::endl;
 
     for_each(u.begin(), u.end(), [&](std::vector<double> vec){
         for (double v : vec) myfile <<v<<";";
@@ -221,5 +221,5 @@ void FDPoisson::plot(){
   QStringList arguments {"plotter.py"};
   QProcess p;
   p.startDetached("python ", arguments);
-  QThread::sleep(3); // Wait for the script to write picture to file
+  QThread::sleep(6); // Wait for the script to write picture to file
 }

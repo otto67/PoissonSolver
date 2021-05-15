@@ -1,6 +1,6 @@
-QT       += core gui opengl
+QT       += core gui
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets printsupport
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++17
 
@@ -15,15 +15,12 @@ MY_PWD = $$PWD
 MY_OUT_PWD = $$OUT_PWD
 MY_FILES = $$MY_PWD/plotter.py $$MY_PWD/livigno.jpg $$MY_PWD/mountain.jpg
 
-
 win32 {
 MY_PWD ~= s,/,\\,g
 MY_OUT_PWD ~= s,/,\\,g
 MY_FILES ~= s,/,\\,g
 }
 
-# QMAKE_POST_LINK +=  $$QMAKE_COPY $$quote($$MY_FILES $$MY_OUT_PWD)
-# for(a, MY_FILES) message($${a})
 for(a, MY_FILES){
                 QMAKE_POST_LINK +=  $$QMAKE_COPY $$quote($${a} $$MY_OUT_PWD $$escape_expand(\\n\\t))
 }

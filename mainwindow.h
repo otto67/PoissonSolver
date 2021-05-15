@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-
+#include <QGraphicsSceneMouseEvent>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -22,6 +22,8 @@ public slots:
     void on_readfilebutton_pressed();
     void on_savefilebutton_pressed();
     void on_runbutton_pressed();
+    void mousePressEvent(QMouseEvent *mouseEvent);
+
 
 private:
     Ui::MainWindow *ui;

@@ -9,6 +9,7 @@
 #include <algorithm>
 #include <QFile>
 #include <QTextStream>
+#include <QMouseEvent>
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -61,7 +62,7 @@ void MainWindow::on_runbutton_pressed(){
 
     std::shared_ptr<DscPrms> prms(new DscPrms(nno, std::get<0>(dom), std::get<2>(dom), std::get<1>(dom), std::get<3>(dom)));
 
-    // bcs are always four for a box, number of rhs coeffs. is unknown at this point
+    // bcs are always four for a box, whereas the number of rhs coeffs. is unknown at this point
     std::vector<float> bc_(4), rhs_;
     parseBC(bc_);
     parseRHS(rhs_);
@@ -83,9 +84,35 @@ void MainWindow::on_runbutton_pressed(){
     }
 }
 
+void MainWindow::mousePressEvent(QMouseEvent *mouseEvent)
+{
+    static QString curr_pic = "livigno.jpg";
+
+    if (mouseEvent->button() != Qt::LeftButton)
+            return;
+
+    QPoint pos = mouseEvent->pos();
+
+    if (ui->graphicsView->geometry().contains(pos)){
+        if (curr_pic == "livigno.jpg")
+            curr_pic = "mountain.jpg";
+        else
+            curr_pic = "livigno.jpg";
+
+        addPlot(curr_pic);
+    }
+    else if (ui->domain_box->geometry().contains(pos))
+    {
+        QMessageBox msgBox;
+        msgBox.setText("Cannot edit domain. There is a bug in the solver");
+        msgBox.exec();
+    }
+ }
+
 void MainWindow::on_exitbutton_pressed(){
     remove( "plot.jpg");
     remove( "nodevals.nod");
+ //   remove( "plotter.py");
     this->close();
 }
 
@@ -161,7 +188,6 @@ void MainWindow::on_savefilebutton_pressed(){
         QFile file(filename);
 
         if (!file.open(QIODevice::WriteOnly | QIODevice::Text)){
-
             QMessageBox msgBox;
             msgBox.setText("File " + filename + " cannot be created");
             msgBox.exec();
@@ -195,9 +221,9 @@ std::tuple<float, float, float, float> MainWindow::parseDomain(QString qstr){
     std::tuple<float, float, float, float> retval;
     qstr = qstr.trimmed();
 
+    // Do some std::string exercise instead of using QString methods
     std::string str = qstr.toStdString();
 
-    // Do some std::string exercise
     pos = str.find_first_of ('[', 0);
     str = str.substr(pos+1);
     pos = str.find_first_of(',');
@@ -257,9 +283,6 @@ void MainWindow::parseBC(std::vector<float>& bc){
         bc[3] = 0.0;
         std::cout<<"Error in bc field 4"<<tmp<<std::endl;
     }
-
-    bc[2] = ui->bound3box->text().toFloat();
-    bc[3] = ui->bound4box->text().toFloat();
 }
 
 void MainWindow::parseRHS(std::vector<float>& rhs_){
